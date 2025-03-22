@@ -1,7 +1,7 @@
 from fastapi import FastAPI, APIRouter ,Depends,UploadFile
 import os 
 from helpers.config import get_settings ,settings
-
+from  controllers import DataController
 
 base_router = APIRouter(
     prefix ="/api/v1/data",
@@ -12,4 +12,8 @@ base_router = APIRouter(
 async def upload_data(project_id:str ,file : UploadFile,
                    app_settings:settings =Depends(get_settings)):
 
-    
+
+# validate the file properties
+is_valid = DataController().validate_uploaded_file(file =file)
+
+return is_valid

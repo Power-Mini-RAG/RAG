@@ -6,7 +6,7 @@ class settings(BaseSettings):
     APP_VERSION: str
     OPENAI_API_KEY: str
 
-    FILE_ALLOWED_EXTNSIONS:list
+    FILE_ALLOWED_TYPES :list
     FILE_MAX_SIZE: int
 
     class Config:
