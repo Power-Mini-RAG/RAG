@@ -1,8 +1,7 @@
 from fastapi import FastAPI
+from routes import base
+
 
 app =FastAPI()
 
-@app.get('/welcome')
-def welcome():
-    return {
-        "massage":"hello world"
+app.inculde_router(base.base_router)
