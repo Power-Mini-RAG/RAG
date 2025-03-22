@@ -39,3 +39,6 @@ set your environment variables in the 'env' file like 'OPENAI_API_KEY' value .
 $ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 ```
+## postman collection :
+download postman collection from [text](assets/mini-RAG.postman_collection.json)
+
