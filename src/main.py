@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from routes import base
-from routes import data
+from routes import base,data
+
 
 
 app =FastAPI()
