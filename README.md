@@ -20,3 +20,16 @@ $ conda create -n RAG python =3.8
 $ conda activate RAG 
 
 ```
+
+## instalation
+### install the required packages
+```bash
+$ pip install -r requirements.txt
+```
+
+### setup the environment variables
+
+```bash
+$ cp .env.copy .env
+```
+set your environment variables in the 'env' file like 'OPENAI_API_KEY' value .
