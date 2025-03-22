@@ -7,7 +7,7 @@ base_router = APIRouter(
 )
 
 @base_router.get('/')
-def welcome():
+async def welcome():
     App_name = os.getenv('APP_NAME')
     App_version = os.getenv('APP_VERSION')
 
