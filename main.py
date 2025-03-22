@@ -4,4 +4,4 @@ from routes import base
 
 app =FastAPI()
 
-app.inculde_router(base.base_router)
+app.include_router(base.base_router)
