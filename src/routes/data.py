@@ -5,6 +5,9 @@ from helpers.config import get_settings ,settings
 from  controllers import DataController ,ProjectController
 import aiofiles
 from models import ResponseSignal
+import logging
+
+logger =logging.getLogger('uvcorn.error')
 
 data_router = APIRouter(
     prefix ="/api/v1/data",
@@ -34,10 +37,20 @@ async def upload_data(project_id:str ,file : UploadFile,
         project_id=project_id
     )
        
+    try:
+        async with aiofiles.open(file_path,"wb") as f:
+            while chunk := await file.read(app_settings.FILE_DEFAULT_CHUNK_SIZE):
+                await f.write(chunk)
 
-    async with aiofiles.open(file_path,"wb") as f:
-        while chunk := await file.read(app_settings.FILE_DEFAULT_CHUNK_SIZE):
-            await f.write(chunk)
+    except Exception as e :
+        logger.error(f"Error while uploding file : {e}")
+        return JSONResponse(
+            status_code =status.HTTP_400_BAD_REQUEST,
+            content ={
+                "Signal" : ResponseSignal.FILE_UPLOADED_FAILED.value
+            },
+        )
+
 
     return JSONResponse(
                 content ={
