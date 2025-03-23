@@ -37,6 +37,4 @@ async def upload_data(project_id:str ,file : UploadFile,
     project_dir_path = ProjectController().get_project_path(project_id=project_id)
 
 
-    project_dir_path
-
 
