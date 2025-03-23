@@ -23,15 +23,7 @@ async def upload_data(project_id:str ,file : UploadFile,
         return JSONResponse(
                 status_code =status.HTTP_400_BAD_REQUEST,
                 content ={
-                    "signal" : result_signal
-                },
-        )
-
-    if is_valid:
-        return JSONResponse(
-                status_code =status.HTTP_200_OK,
-                content ={
-                    "signal" : result_signal
+                    "Signal" : result_signal
                 },
         )
 
@@ -41,6 +33,7 @@ async def upload_data(project_id:str ,file : UploadFile,
         project_dir_path,
         file.filename
         )
+    
 
     async with aiofiles.open(file_path,"wb") as f:
         while chunk := await file.read(app_settings.FILE_DEFAULT_CHUNK_SIZE):
@@ -48,7 +41,7 @@ async def upload_data(project_id:str ,file : UploadFile,
 
     return JSONResponse(
                 content ={
-                    "signal" : ResponseSignal.FILE_UPLOADED_Success.value
+                    "Signal" : ResponseSignal.FILE_UPLOADED_Success.value
                 }
         )
 
