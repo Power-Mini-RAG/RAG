@@ -14,6 +14,9 @@ async def upload_data(project_id:str ,file : UploadFile,
 
 
 # validate the file properties
-    is_valid = DataController().validate_uploaded_file(file =file)
+    is_valid, result_signal = DataController().validate_uploaded_file(file =file)
 
-    return is_valid
+    return {
+        "is_valid":is_valid,
+        "result_signal":result_signal,
+    }
