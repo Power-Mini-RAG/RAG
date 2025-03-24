@@ -7,8 +7,6 @@ from models import ProcessingEunms
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 
-
-
 class ProcessController(BaseController):
     
     def __init__(self , project_id :str):
@@ -18,8 +16,9 @@ class ProcessController(BaseController):
         self.project_path = ProjectController().get_project_path(project_id)
     
     
-    def get_file_extension(self, file_id :str):
-        return os.path.splitext()[-1]
+    def get_file_extension(self, file_id : str):
+        
+        return os.path.splitext(file_id)[-1]
     
     
     def get_file_loader(self ,file_id :str):
@@ -47,6 +46,7 @@ class ProcessController(BaseController):
         
         return loader.load()
     
+    
     def process_file_content(self,file_content :list,
                              file_id: str,chunk_size :int=100, overlap_size: int=20):
         
@@ -58,11 +58,11 @@ class ProcessController(BaseController):
            )
         
         file_content_text = [
-            rec.page_content
+            rec.page_content 
             for rec in file_content
         ]
         
-        file_content_matedata =[
+        file_content_metadata =[
             rec.metadata
             for rec in file_content
             
@@ -71,7 +71,7 @@ class ProcessController(BaseController):
         chunks = text_spliter.create_documents(
             
             file_content_text,
-            metadatas =file_content_metadata,
+            metadatas = file_content_metadata,
             
         )
         
