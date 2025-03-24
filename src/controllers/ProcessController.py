@@ -52,7 +52,7 @@ class ProcessController(BaseController):
         
         text_spliter = RecursiveCharacterTextSplitter(
             chunk_size = chunk_size,
-            overlap_size = overlap_size,
+            chunk_overlap = overlap_size,
             length_function = len,
             
            )
@@ -71,6 +71,9 @@ class ProcessController(BaseController):
         chunks = text_spliter.create_documents(
             
             file_content_text,
-            metadatas =file_content_metadata
+            metadatas =file_content_metadata,
             
         )
+        
+        return chunks
+         
