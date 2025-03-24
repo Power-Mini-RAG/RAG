@@ -6,6 +6,7 @@ from  controllers import DataController ,ProjectController
 import aiofiles
 from models import ResponseSignal
 import logging
+from.Schemes.data import ProcessRequest
 
 logger =logging.getLogger('uvcorn.error')
 
@@ -61,7 +62,11 @@ async def upload_data(project_id:str ,file : UploadFile,
         )
 
 
-
-
-
+@data_router.post('/process/{project_id}')
+async def process_endpoint(project_id: str,process_request: ProcessRequest):
+    file_id = process_request.file_id
+    return {
+        
+        "file_id" :file_id
+    }
 
