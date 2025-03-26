@@ -1,0 +1,73 @@
+{
+	"info": {
+		"_postman_id": "7e55e5dd-589a-4b76-87d0-bb869b3556b5",
+		"name": "mini-RAG",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43336729",
+		"_collection_link": "https://gold-crescent-584827.postman.co/workspace/Team-Workspace~e9434c50-18d6-4580-8d88-c1862bf887f1/collection/43336729-7e55e5dd-589a-4b76-87d0-bb869b3556b5?action=share&source=collection_link&creator=43336729"
+	},
+	"item": [
+		{
+			"name": "welcome request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Api}}/welcome",
+					"host": [
+						"{{Api}}"
+					],
+					"path": [
+						"welcome"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "process",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Api",
+			"value": "http://localhost:5000",
+			"type": "string"
+		}
+	]
+}
