@@ -30,11 +30,11 @@ class ProcessController(BaseController):
             file_id
         )
         
-        if file_ext == ProcessingEunms.TXT.value:
+        if file_ext == ProcessingEnum.TXT.value:
             
             return TextLoader(file_path, encoding="utf-8")
         
-        if file_ext == ProcessingEunms.PDF.value:
+        if file_ext == ProcessingEnum.PDF.value:
             
             return PyMuPDFLoader(file_path)
         
