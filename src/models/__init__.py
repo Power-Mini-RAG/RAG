@@ -1,2 +1,2 @@
-from .enums.ResponseEunms import ResponseSignal
-from .enums.ProcessingEunms import ProcessingEunms
+from .enums.ResponseEnum import ResponseSignal
+from .enums.ProcessingEnum import ProcessingEnum
