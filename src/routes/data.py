@@ -31,7 +31,7 @@ async def upload_data(Request : Request ,project_id:str ,file : UploadFile,
     
     
     data_controller = DataController()
-# validate the file properties
+    # validate the file properties
     is_valid, result_signal = data_controller.validate_uploaded_file(file =file)
 
     if not is_valid :
