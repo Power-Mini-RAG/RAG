@@ -1,0 +1,15 @@
+fastapi==0.115.11
+uvicorn==0.29.0
+python-multipart==0.0.20
+python-dotenv==1.0.1
+pydantic-settings==2.8.1
+aiofiles==23.2.1
+langchain==0.1.20
+PyMuPDF==1.24.3
+motor==3.4.0
+pymongo==4.5.0
+
+
+
+
+
