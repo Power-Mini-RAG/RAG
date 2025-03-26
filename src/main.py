@@ -12,9 +12,9 @@ async def start_db_client():
     app.db_client = app.mongo_conn[settings.MONGODB_DATABASE]
  
  
- @app.on_event("shutdown")
- async def shutdown_db_client():
-     app.mongo_conn.close()
+@app.on_event("shutdown")
+async def shutdown_db_client():
+    app.mongo_conn.close()
         
 
 app.include_router(base.base_router)
