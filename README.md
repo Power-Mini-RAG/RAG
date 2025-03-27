@@ -1,4 +1,3 @@
-![Image](https://github.com/user-attachments/assets/ee9051f3-c819-4dd3-9d13-68f362ca6e01)
 # mini-RAG
 
 This is a minimal implementation of the RAG model for question Answering .
