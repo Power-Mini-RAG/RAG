@@ -120,9 +120,9 @@ cp .env.example .env
 ```
 
 * update `.env` with your credetials
-### This is a set of codes that work to clean and remove Containers and images to start over
+##### This is a set of codes that work to clean and remove Containers and images to start over
 
-### Stop all Containers if used WSl and if used windows just remove sudo  in this code :
+##### Stop all Containers if used WSl and if used windows just remove sudo  in this code :
 ```bash
 sudo docker stop $(docker ps -aq)
 ```
