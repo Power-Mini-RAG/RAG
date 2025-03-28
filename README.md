@@ -1,4 +1,4 @@
-# mini-RAG
+# Mini-RAG
 
 This is a minimal implementation of the RAG model for question Answering .
 
@@ -74,25 +74,25 @@ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 ```bash
  chmod +x Miniconda3-latest-Linux-x86_64.sh  
 ```
-### install miniconda
+#### install miniconda
 ```bash
 ./Miniconda3-latest-Linux-x86_64.sh
 
 ```
-### close and open vscode :
+#### close and open vscode :
 
 * create env:
 ```bash
 conda create -n  RAG python=3.8
 
 ```
-## Activate the env :
+#### Activate the env :
 ```bash
 
 conda activate RAG
 
 ```
-### shorten the code for Ubuntu :
+#### shorten the code for Ubuntu :
 ```bash
 
 export PS1="\[\033[01;32m\]\u@\h:\w\n\[\033[00m\]\$ "
@@ -100,19 +100,19 @@ export PS1="\[\033[01;32m\]\u@\h:\w\n\[\033[00m\]\$ "
 ```
 
 
-## Install the required packages
+#### Install the required packages
 ```bash
 $ pip install -r requirements.txt
 ```
 
-### setup the environment variables
+#### setup the environment variables
 
 ```bash
 $ cp .env.copy .env
 ```
 set your environment variables in the `.env` file like `OPENAI_API_KEY` value .
 
-### Run Docker compose :
+#### Run Docker compose :
 
 ```bash
 cd docker
@@ -120,38 +120,38 @@ cp .env.example .env
 ```
 
 * update `.env` with your credetials
-##### This is a set of codes that work to clean and remove Containers and images to start over
+#### This is a set of codes that work to clean and remove Containers and images to start over
 
-##### Stop all Containers if used WSl and if used windows just remove sudo  in this code :
+#### Stop all Containers if used WSl and if used windows just remove sudo  in this code :
 ```bash
 sudo docker stop $(docker ps -aq)
 ```
 
-### Remove all Containers:
+#### Remove all Containers:
 ```bash 
 sudo docker rm $(docker ps -aq)
 ```
 
-### Remove all images :
+#### Remove all images :
 ```bash 
 sudo docker rmi $(docker images -q) -f
 
 ```
-### cleaning all system :
+#### cleaning all system :
 ```bash
 sudo docker system prune -a --volumes
 ```
-### Run the docker compose :
+#### Run the docker compose :
 ```bash
 sudo docker compose up -d
 ```
 
 
-## Run The API Server :
+#### Run The API Server :
 ```bash 
 $ uvicorn main:app --reload --host 0.0.0.0 --port 5000
 
 ```
-## postman collection :
+#### postman collection :
 download postman collection from [text](assets/mini-RAG.postman_collection.json)
 
