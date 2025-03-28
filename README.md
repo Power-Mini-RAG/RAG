@@ -120,6 +120,7 @@ cp .env.example .env
 ```
 
 * update `.env` with your credetials
+### This is a set of codes that work to clean and remove Containers and images to start over
 
 ### Stop all Containers if used WSl and if used windows just remove sudo  in this code :
 ```bash
@@ -140,7 +141,10 @@ sudo docker rmi $(docker images -q) -f
 ```bash
 sudo docker system prune -a --volumes
 ```
-
+### Run the docker compose :
+```bash
+sudo docker compose up -d
+```
 
 
 ## Run The API Server :
