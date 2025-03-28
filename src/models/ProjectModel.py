@@ -1,7 +1,7 @@
 from .BaseDataModel import BaseDataModel
 from .db_schemes import Project
 from .enums.DataBaseEnum import DataBaseEnum
-from starlette.concurrency import run_in_threadpool
+
 
 class ProjectModel(BaseDataModel):
 
