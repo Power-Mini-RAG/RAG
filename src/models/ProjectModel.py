@@ -1,6 +1,7 @@
 from .BaseDataModel import BaseDataModel
 from .db_schemes import Project
 from .enums.DataBaseEnum import DataBaseEnum
+from starlette.concurrency import run_in_threadpool
 
 class ProjectModel(BaseDataModel):
 
@@ -20,7 +21,7 @@ class ProjectModel(BaseDataModel):
         record = await self.collection.find_one({
             "project_id": project_id
         })
-
+   
         if record is None:
             # create new project
             project = Project(project_id=project_id)

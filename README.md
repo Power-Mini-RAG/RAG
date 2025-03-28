@@ -110,7 +110,38 @@ $ pip install -r requirements.txt
 ```bash
 $ cp .env.copy .env
 ```
-set your environment variables in the 'env' file like 'OPENAI_API_KEY' value .
+set your environment variables in the `.env` file like `OPENAI_API_KEY` value .
+
+### Run Docker compose :
+
+```bash
+cd docker
+cp .env.example .env
+```
+
+* update `.env` with your credetials
+
+### Stop all Containers if used WSl and if used windows just remove sudo  in this code :
+```bash
+sudo docker stop $(docker ps -aq)
+```
+
+### Remove all Containers:
+```bash 
+sudo docker rm $(docker ps -aq)
+```
+
+### Remove all images :
+```bash 
+sudo docker rmi $(docker images -q) -f
+
+```
+### cleaning all system :
+```bash
+sudo docker system prune -a --volumes
+```
+
+
 
 ## Run The API Server :
 ```bash 
