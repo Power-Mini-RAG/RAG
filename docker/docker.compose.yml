@@ -4,7 +4,7 @@ services:
     image: mongo:8.0.6-noble
     container_name: mongodb
     ports:
-      - "27017:27017"
+      - "27007:27017"
     volumes:
       - ./mongodb:/data/db
     networks:
