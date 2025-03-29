@@ -160,4 +160,4 @@ sudo docker compose stop
 
 
 ## postman collection :
-download postman collection from [text](assets/mini-RAG.postman_collection.json)
+download postman collection from [str/assets/mini-RAG.postman_collection.json](str/assets/mini-RAG.postman_collection.json)
