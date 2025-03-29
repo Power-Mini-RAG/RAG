@@ -9,8 +9,8 @@ class Asset(BaseModel):
     asset_type : str = Field(...,min_length =1)
     asset_name : str = Field(...,min_length =1)
     asset_size : int = Field(ge = 0, default= None)
-    asset_config = dict =Field(default= None)
-    asset_pushed_at:datetime=Field(default=datetime.utcnow)
+    asset_config : dict = Field(default=None)
+    asset_pushed_at:datetime= Field(default_factory=datetime.utcnow)
     
     class Config:
         arbitrary_types_allowed = True
@@ -33,7 +33,7 @@ class Asset(BaseModel):
                    ("asset_project_id",1),
                    ("asset_name",1)
                ],
-               "name":"asset_project_id_asset_name_index_1",
+               "name":"asset_project_id__name_index_1",
                "unique" :True   
             } 
             
