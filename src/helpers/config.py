@@ -1,6 +1,6 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-class settings(BaseSettings):
+class Settings(BaseSettings):
 
     APP_NAME:str
     APP_VERSION: str
@@ -18,4 +18,4 @@ class settings(BaseSettings):
 
 
 def get_settings():
-    return settings()
+    return Settings()

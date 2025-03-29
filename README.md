@@ -152,6 +152,13 @@ sudo docker compose up -d
 $ uvicorn main:app --reload --host 0.0.0.0 --port 5000
 
 ```
+
+### Stop the docker compose :
+```bash
+sudo docker compose stop
+```
+
 #### postman collection :
+
 download postman collection from [text](assets/mini-RAG.postman_collection.json)
 
