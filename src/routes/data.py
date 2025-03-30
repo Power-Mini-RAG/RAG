@@ -163,6 +163,11 @@ async def process_endpoint(request : Request ,project_id: str, process_request: 
     for file_id in project_file_ids:
 
         file_content = process_controller.get_file_content(file_id=file_id)
+        
+        if file_content is None:
+            logger.error(f"Error while processing file {file_id}")
+            continue
+            
 
         file_chunks = process_controller.process_file_content(
             file_content=file_content,
@@ -200,11 +205,11 @@ async def process_endpoint(request : Request ,project_id: str, process_request: 
         
         no_file +=1
         
-        return  JSONResponse(
-                content={
-                    "signal": ResponseSignal.PROCESSING_SUCCESS.value ,
-                    "inserted_chunks":no_records,
-                    "Processed_file" : no_file
+    return  JSONResponse(
+            content={
+                "signal": ResponseSignal.PROCESSING_SUCCESS.value ,
+                "inserted_chunks":no_records,
+                "Processed_file" : no_file
                 }
             )
     
