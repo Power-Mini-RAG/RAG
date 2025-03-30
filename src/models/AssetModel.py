@@ -45,7 +45,7 @@ class AssetModel(BaseDataModel):
             Asset(**record)
             for record in records
         ]
-
+    
     async def get_asset_record(self, asset_project_id: str, asset_name: str):
 
         record = await self.collection.find_one({
