@@ -25,8 +25,8 @@ class ChunkModel(BaseDataModel):
             for index in indexes :
                 await  self.collection.create_index(
                     index["key"],
-                    index["name"],
-                    index["unique"]
+                    name =index["name"],
+                    unique =index["unique"]
                     
                 )
 
