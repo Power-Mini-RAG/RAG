@@ -106,7 +106,7 @@ class CohereProvider(LLMInterface):
         )
         
         if not response or not response.embeddings or len(response.embeddings) or not response.embeddings.float:
-            self.logger.("Error while embedding text with Cohere")
+            self.logger.error("Error while embedding text with Cohere")
             return None
         
         return response.embeddings.float[0]
