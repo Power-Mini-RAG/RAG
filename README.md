@@ -159,5 +159,19 @@ sudo docker compose stop
 ```
 
 
+### Update the Ubuntu in wsl :
+```bash 
+sudo apt update && sudo apt upgrade -y
+```
+
+### Install Rust and Cargo in wsl :
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+. "$HOME/.cargo/env"
+
+```
+
+
 ## postman collection :
 download postman collection from [str/assets/mini-RAG.postman_collection.json](str/assets/mini-RAG.postman_collection.json)
