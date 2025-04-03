@@ -1,6 +1,7 @@
 from LLMInterface import LLMInterface
-from openai import OpenAI 
+from openai import OpenAI
 import logging
+from LLMEnums import OpenAIEnums
 
 class OpenAIProvider(LLMInterface):
     
@@ -39,9 +40,13 @@ class OpenAIProvider(LLMInterface):
     def set_embedding_model(self , model_id :str,  embedding_size :int):
         self.embedding_model_id = model_id
         self.embedding_size = embedding_size
+        
+    
+    def process_text (self , text : str):
+        return text[:self.default_input_max_characters].strip()
     
     
-    def generation_text(self , prompt: str ,max_output_tokens : int = None , 
+    def generation_text(self , prompt: str ,chat_history :list =[] ,max_output_tokens : int = None , 
                         temperature : float =None): 
               
         if not self.client:
@@ -57,13 +62,36 @@ class OpenAIProvider(LLMInterface):
         
         temperature = temperature if temperature else self.default_generation_temperature
         
+        chat_history.append(
+            self.construct_prompt(
+                
+                prompt =prompt ,
+                role = OpenAIEnums.USER.value
+                
+            )   
+        )
         
-        pass
+        response =self.client.chat.completions.create(
+            
+            model =self.generation_model_id,
+            massage = chat_history ,
+            max_tokens = max_output_tokens, 
+            temperature =temperature
+            
+        )
+        
+        
+        if not response or not response.choices or len(response.choices)==0 or not response.choices[0].message:
+            self.logger.error("Error while generation text with openAi")
+            return None
+        
+        
+        return response.choices[0].message.content
         
     
     
     
-    def embed_text(self, text: str , document_type: str ):
+    def embed_text(self, text: str , document_type: str = None):
         
         if not self.client:
             self.logger.error("openai client was not set")
@@ -86,7 +114,17 @@ class OpenAIProvider(LLMInterface):
         
         
         return response.data[0].embedding
+    
+    
+    def construct_prompt(self , prompt: str , role: str ):
         
+        return {
+            
+            "role" : role ,
+            "content" : self.process_text(prompt)     
+            
+            
+        }
     
         
         
