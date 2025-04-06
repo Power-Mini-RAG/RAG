@@ -12,7 +12,7 @@ class VectorDBInterface(ABC):
         pass
     
     @abstractmethod
-    def is_collection_name(self, collection_name:str) -> bool:
+    def is_collection_exists(self, collection_name:str) -> bool:
         pass
     
     @abstractmethod
@@ -42,7 +42,7 @@ class VectorDBInterface(ABC):
     
                    
     @abstractmethod
-    def insert_many(self,  collection_name: str , text :list
+    def insert_many(self,  collection_name: str , texts :list
                         ,vectors : list,metadata : list =None,
                         record_id : list =None,batch_size : int =50):
         pass
