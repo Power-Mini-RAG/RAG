@@ -26,9 +26,7 @@ class OpenAIProvider(LLMInterface):
 
         self.client = OpenAI(
             api_key = self.api_key,
-            base_url = self.api_url if self.api_url and len(self.api_url) else None
-            
-        )
+            base_url = self.api_url if self.api_url and len(self.api_url) else None)
             
          
 
@@ -106,12 +104,7 @@ class OpenAIProvider(LLMInterface):
     def construct_prompt(self, prompt: str, role: str):
         return {
             "role": role,
-            
-            "content": self.process_text(prompt)
-            
-            
-            
-            
+            "content": self.process_text(prompt)   
         }
     
 

@@ -2,7 +2,7 @@ from ..LLMInterface import LLMInterface
 from ..LLMEnums import CohereEnums ,DocumentTypeEnums
 import logging
 import cohere 
-
+import time
 
 
 class CohereProvider(LLMInterface):
@@ -23,7 +23,7 @@ class CohereProvider(LLMInterface):
         self.embedding_size      = None
         
         
-        self.client = cohere.ClientV2(
+        self.client = cohere.Client(
             
             api_key = self.api_key
         )
@@ -46,7 +46,7 @@ class CohereProvider(LLMInterface):
         return text[:self.default_input_max_characters].strip()
     
     
-    def generation_text(self , prompt: str ,chat_history :list =[], max_output_tokens : int =None , 
+    def generate_text(self , prompt: str ,chat_history :list =[], max_output_tokens : int =None , 
                         temperature : float =None): 
               
         if not self.client:
@@ -76,7 +76,7 @@ class CohereProvider(LLMInterface):
            return None
        
             
-        return response.message.content[0].text
+        return response.text
     
     
     
@@ -95,21 +95,27 @@ class CohereProvider(LLMInterface):
         if document_type == DocumentTypeEnums.QUERY.value:
             input_type = CohereEnums.QUERY.value
         
-        
-        response = self.client.embed(
+        time.sleep(1)
+        try :
+            response = self.client.embed(
+                
+                model =self.generation_model_id,
+                texts = [self.process_text(text)],
+                input_type = input_type ,
+                embedding_types=["float"]
+                
+                )
             
-            model =self.generation_model_id,
-            texts = [self.process_text(text)],
-            input_type = input_type ,
-            embedding_types=["float"]
+            if not response or not response.embeddings or not response.embeddings.float:
+                self.logger.error("Error while embedding text with CoHere")
+                return None
             
-        )
+            return response.embeddings.float[0]
         
-        if not response or not response.embeddings or len(response.embeddings) or not response.embeddings.float:
-            self.logger.error("Error while embedding text with Cohere")
+        except Exception as e:
+            self.logger.error(f"Error occurred: {e}")
             return None
-        
-        return response.embeddings.float[0]
+
 
 
     def construct_prompt(self , prompt: str , role: str ):

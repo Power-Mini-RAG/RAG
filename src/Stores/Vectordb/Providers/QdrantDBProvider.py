@@ -2,6 +2,7 @@
 from qdrant_client import models , QdrantClient
 from ..VectorDBInterface import VectorDBInterface
 from ..VectorDBEnums import DistanceMethodEnums
+from models.db_schemes.data_chunk import RetrievedDocument
 import logging
 from typing import List
 
@@ -32,7 +33,7 @@ class QdrantDBProvider(VectorDBInterface):
     
     def disconnect(self):
         
-        raise NotImplementedError
+        self.client = None
     
     
     def is_collection_exists(self, collection_name:str) -> bool:
@@ -89,6 +90,7 @@ class QdrantDBProvider(VectorDBInterface):
                 collection_name = collection_name,
                 records =[
                     models.Record(
+                        id = [record_id],
                         vector = vector,
                         payload = {
                             "text" : text,
@@ -115,7 +117,7 @@ class QdrantDBProvider(VectorDBInterface):
             metadata =[None] * len(texts)
 
         if record_id is None:
-            record_id =[None] * len(texts)  
+            record_id = List(range(0 , len(texts)))
  
         if not self.is_collection_exists(collection_name):
             self.logger.error(f"Can not insert new record to non existed collection: {collection_name}")
@@ -128,11 +130,13 @@ class QdrantDBProvider(VectorDBInterface):
             batch_text = texts[i :batch_end]
             batch_vectors =vectors[i :batch_end]
             batch_metadata = metadata[i :batch_end]
+            batch_record_ids =record_id[i :batch_end]
             
             
             batch_records =[
                 
                 models.Record(
+                    id = batch_record_ids[x],
                     vector = batch_vectors[x],
                     payload = {
                         "text" : batch_text[x],
@@ -157,18 +161,26 @@ class QdrantDBProvider(VectorDBInterface):
             
         return True
     
-    def search_by_vector(self ,collection_name : str ,vector : list ,limit : int =5):
-        
-        return self.client.search(
-            collection_name = collection_name,
-            query_vector = vector,
-            limit = limit
-    
+    def search_by_vector(self, collection_name: str, vector: list, limit: int = 5):
+
+        results = self.client.search(
+            collection_name=collection_name,
+            query_vector=vector,
+            limit=limit
         )
-         
-    
-    
-            
+
+        if not results or len(results) == 0:
+            return None
+
+        return [
+            RetrievedDocument(**{
+                "score": result.score,
+                "text": result.payload["text"],
+            })
+            for result in results
+        ]
+
+                
         
         
         

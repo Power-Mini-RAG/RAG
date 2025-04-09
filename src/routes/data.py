@@ -4,21 +4,23 @@ import os
 from helpers.config import get_settings ,Settings
 from  controllers import DataController ,ProjectController,ProcessController
 import aiofiles
-from models import ResponseSignal,AssetTypeEnum
+from models import ResponseSignal
+from models.enums.AssetTypeEnum import AssetTypeEnum
 import logging
 from.Schemes.data import ProcessRequest
 from models.ProjectModel import ProjectModel
 from models.ChunkModel import ChunkModel
 from models.AssetModel import AssetModel
-from models .db_schemes import DataChunk ,Asset
-from bson import ObjectId
+from models.db_schemes import DataChunk ,Asset
+import json
+
 
 
 logger =logging.getLogger('uvcorn.error')
 
 data_router = APIRouter(
     prefix ="/api/v1/data",
-    tags =["api_v1/","data"],
+    tags =["api_v1","data"],
 )
 
 @data_router.post('/upload/{project_id}')
@@ -43,7 +45,7 @@ async def upload_data(request : Request ,project_id:str ,file : UploadFile,
         return JSONResponse(
                 status_code =status.HTTP_400_BAD_REQUEST,
                 content ={
-                    "Signal" : result_signal
+                    "signal" : result_signal
                 },
         )
 
@@ -64,7 +66,7 @@ async def upload_data(request : Request ,project_id:str ,file : UploadFile,
         return JSONResponse(
             status_code =status.HTTP_400_BAD_REQUEST,
             content ={
-                "Signal" : ResponseSignal.FILE_UPLOADED_FAILED.value
+                "signal" : ResponseSignal.FILE_UPLOADED_FAILED.value
             },
         )
 
@@ -88,7 +90,7 @@ async def upload_data(request : Request ,project_id:str ,file : UploadFile,
        
     return JSONResponse(
                 content ={
-                    "Signal" : ResponseSignal.FILE_UPLOADED_Success.value,
+                    "signal" : ResponseSignal.FILE_UPLOADED_Success.value,
                     "file_id" : str(asset_record.id)
                     
                 }
@@ -98,7 +100,7 @@ async def upload_data(request : Request ,project_id:str ,file : UploadFile,
 @data_router.post("/process/{project_id}")
 async def process_endpoint(request : Request ,project_id: str, process_request: ProcessRequest):
 
-    file_id = process_request.file_id
+
     chunk_size = process_request.chunk_size
     overlap_size = process_request.overlap_size
     do_reset = process_request.do_reset
@@ -185,18 +187,21 @@ async def process_endpoint(request : Request ,project_id: str, process_request: 
     for asset_id ,file_id in project_file_ids.items():
 
         file_content = process_controller.get_file_content(file_id=file_id)
-        
+
         if file_content is None:
             logger.error(f"Error while processing file {file_id}")
             continue
             
 
         file_chunks = process_controller.process_file_content(
+            
             file_content=file_content,
             file_id=file_id,
             chunk_size=chunk_size,
             overlap_size=overlap_size
         )
+        
+        print(file_chunks)
 
         if file_chunks is None or len(file_chunks) == 0:
             return JSONResponse(

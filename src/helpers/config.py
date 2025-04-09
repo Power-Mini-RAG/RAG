@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     GENERATION_MODEL_ID: str =None
     EMBEDDING_MODEL_ID : str =None
     
-    EMBEDDING_MODEL_SIZE : int =None
+    EMBEDDING_MODEL_SIZE : int 
     DEFAULT_INPUT_MAX_CHARACTERS : int =None
     DEFAULT_GENERATION_MAX_OUTPUT_TOKENS : int =None
 
