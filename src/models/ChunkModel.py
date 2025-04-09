@@ -68,7 +68,7 @@ class ChunkModel(BaseDataModel):
         return result.deleted_count
     
     
-    async def get_project_chunks(self , project_id :ObjectId, page_no: int =1 , page_size :int = 50 ):
+    async def get_project_chunks(self , project_id :ObjectId, page_no: int =1 , page_size :int = 10 ):
         """
         Apply pagination in this function 
         

@@ -90,7 +90,7 @@ class NLPController(BaseController):
             texts = texts,
             vectors = vectors,
             metadata = matedata,
-            chunks_ids = chunks_ids,
+            record_id = chunks_ids,
             
   
         )
@@ -147,6 +147,8 @@ class NLPController(BaseController):
         
         if not retrieved_documents or len(retrieved_documents) ==0:
             return None
+        
+        pass
     
         
         

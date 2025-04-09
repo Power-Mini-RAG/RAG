@@ -7,6 +7,7 @@ from models.enums.ResponseEnum import ResponseSignal
 from controllers import NLPController
 import os 
 import logging
+from typing import List
 
 
 logger =logging.getLogger('uvcorn.error')
@@ -48,6 +49,7 @@ async def index_project(request :Request ,project_id : str ,Push_request : PushR
               
         )
     
+    
     nlp_controller = NLPController(
         VectorDB_client = request.app.VectorDB_client,
         Generation_client = request.app.Generation_client,
@@ -66,7 +68,8 @@ async def index_project(request :Request ,project_id : str ,Push_request : PushR
     
     while has_records :
     
-        page_chunks =await chunk_model.get_project_chunks(project_id = project.id ,page_no = page_no)
+        page_chunks =await chunk_model.get_project_chunks(project_id = project.id,
+                                                          page_no = page_no)
         
         if len(page_chunks):
             page_no +=1
@@ -79,14 +82,21 @@ async def index_project(request :Request ,project_id : str ,Push_request : PushR
         
         idx += len(page_chunks)
         
+        # check values
+        # print(f"this  project :{project}")
+        # print(f"this number for do_reset :{Push_request.do_reset}")
+        # print(f"this list for chunks_ids :{chunks_ids}")
+        # print(f"this number for length page_chunks :{len(page_chunks)}")
+        # print(f"this is the content of :{page_chunks}")
+        
         is_inserted=nlp_controller.index_into_vector_db(
             project = project ,
             chunks= page_chunks,
             do_reset = Push_request.do_reset,
             chunks_ids = chunks_ids
-            
-        
             )
+        
+    
     
         if not is_inserted :
             return JSONResponse(
@@ -171,12 +181,19 @@ async def search_index(request :Request ,project_id : str ,search_request :Searc
         
     )
     
+    print(f"this  project :{project}")
+    print(f"this is the Query from user :{search_request.text}")
+    print(f"this is limit :{search_request.limit}")
+    
+
     results = nlp_controller.search_vector_db_collection(
         
         project =project,
         text = search_request.text,
         limit = search_request.limit
     )
+    
+    print(f"this is the results:{results}")
     
     if not results :
         return JSONResponse(

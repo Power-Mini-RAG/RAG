@@ -95,7 +95,7 @@ class CohereProvider(LLMInterface):
         if document_type == DocumentTypeEnums.QUERY.value:
             input_type = CohereEnums.QUERY.value
         
-        time.sleep(1)
+       
         try :
             response = self.client.embed(
                 
