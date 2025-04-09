@@ -7,7 +7,7 @@ from models.enums.ResponseEnum import ResponseSignal
 from controllers import NLPController
 import os 
 import logging
-import asyncio
+
 
 logger =logging.getLogger('uvcorn.error')
 
@@ -101,7 +101,7 @@ async def index_project(request :Request ,project_id : str ,Push_request : PushR
             
         inserted_items_count += len(page_chunks)
         
-        await asyncio.sleep(1.5)
+        
         
             
     

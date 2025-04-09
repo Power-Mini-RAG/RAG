@@ -128,14 +128,26 @@ class NLPController(BaseController):
         if not results :
             return False
         
-        return json.loads(
-            
-            json.dumps(results,default=lambda X: X.__dict__)
-        )
+        return results
     
+    def answer_rag_quesion(self ,project :Project, Query : str ,limit:int =10):
         
+        """
+        step_1 : retrieve related documents
+        step_2 : construct LLm prompt
         
+        """
         
+        retrieved_documents =self.search_vector_db_collection(
+            project =project,
+            text = Query , 
+            limit =limit
+            
+            )
+        
+        if not retrieved_documents or len(retrieved_documents) ==0:
+            return None
+    
         
         
         
