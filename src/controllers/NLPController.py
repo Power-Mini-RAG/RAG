@@ -98,7 +98,7 @@ class NLPController(BaseController):
         return True
     
     
-    def search_vector_db_collection(self ,project :Project,text : str ,limit:int =10):
+    def search_vector_db_collection(self ,project :Project,text : str ,limit:int =50):
         
         """
         step_1 : get collection name 

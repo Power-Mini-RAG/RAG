@@ -111,9 +111,6 @@ async def index_project(request :Request ,project_id : str ,Push_request : PushR
             
         inserted_items_count += len(page_chunks)
         
-        
-        
-            
     
     return JSONResponse(
         
