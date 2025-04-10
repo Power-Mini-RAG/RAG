@@ -104,7 +104,7 @@ async def index_project(request :Request ,project_id : str ,Push_request : PushR
             
             content ={
                 
-                "Signal":ResponseSignal.INSERT_INTO_VECTORDB_ERROR.value
+                "signal":ResponseSignal.INSERT_INTO_VECTORDB_ERROR.value
             },
               
         )
@@ -116,7 +116,7 @@ async def index_project(request :Request ,project_id : str ,Push_request : PushR
         
         content ={
             
-            "Signal" : ResponseSignal.INSERT_INTO_VECTORDB_SUCCESS.value,
+            "signal" : ResponseSignal.INSERT_INTO_VECTORDB_SUCCESS.value,
             "inserted_items_count" : inserted_items_count
             
         }

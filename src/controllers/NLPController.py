@@ -98,7 +98,7 @@ class NLPController(BaseController):
         return True
     
     
-    def search_vector_db_collection(self ,project :Project,text : str ,limit:int =50):
+    def search_vector_db_collection(self ,project :Project,text : str ,limit:int =5):
         
         """
         step_1 : get collection name 
@@ -130,7 +130,7 @@ class NLPController(BaseController):
         
         return results
     
-    def answer_rag_quesion(self ,project :Project, Query : str ,limit:int =10):
+    def answer_rag_quesion(self ,project :Project, Query : str ,limit:int =5):
         
         """
         step_1 : retrieve related documents
