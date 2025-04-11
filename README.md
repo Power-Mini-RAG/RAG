@@ -173,7 +173,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 ### Run Ollama in google colab and convert the url local to public url
 
-#### first download the ollama in linex :
+#### first download the ollama in linux :
 ```bash
 !curl https://ollama.ai/install.sh | sh
 ```
