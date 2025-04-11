@@ -158,7 +158,6 @@ $ uvicorn main:app --reload --host 0.0.0.0 --port 5000
 sudo docker compose stop
 ```
 
-
 ### Update the Ubuntu in wsl :
 ```bash 
 sudo apt update && sudo apt upgrade -y
@@ -171,6 +170,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 . "$HOME/.cargo/env"
 
 ```
+
 ### Run Ollama in google colab and convert the url local to public url
 
 #### first download the ollama in linux :
@@ -245,6 +245,6 @@ curl https://a0b3-34-143-137-ngrok-free.app/api/chat -d '{
   ]
 }'
 ```
-
 ## postman collection :
-download postman collection from [str/assets/mini-RAG.postman_collection.json](str/assets/mini-RAG.postman_collection.json)
+
+download postman collection from [src/assets/mini-RAG.postman_collection_v3](src/assets/mini-RAG.postman_collection_v3)
