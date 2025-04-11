@@ -171,7 +171,80 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 . "$HOME/.cargo/env"
 
 ```
+### Run Ollama in google colab and convert the url local to public url
 
+#### first download the ollama in linex :
+```bash
+!curl https://ollama.ai/install.sh | sh
+```
+
+#### Select the model :
+
+```bash
+ollama_model_id = "gemma2:9b-instruct-q5_0"
+```
+
+#### This is the kill server :
+```bash
+!pkill -f ollama
+```
+
+### pull the model :
+```bash
+!ollama pull {ollama_model_id}
+
+```
+###  Run the Ollama in backgraund and show the tail in this file :
+```bash
+!nohup bash -c "OLLAMA_HOST=0.0.0.0:8000 OLLAMA_ORIGIN=* ollama run {ollama_model_id}"  &
+!sleep 5 && tail /content/nohup.out
+```
+
+### Request the ollama :
+```bash
+%%bash
+curl http://localhost:8000/api/chat -d '{
+  "model": "gemma2:9b-instruct-q5_0",
+  "stream": false,
+  "messages": [
+    { "role": "user", "content": "ما عاصمة مصر؟" }
+  ]
+}'
+```
+
+### convert the url local to public url
+
+#### install PyNgrok:
+```bash
+! pip install pyngrok ==7.2.0
+````
+### Connect to token pyngrok and configration and apply public url:
+
+```bash
+from google.colab import userdata
+from pyngrok import ngrok, conf
+
+ngrok_auth = userdata.get('colab-ngrok')
+
+conf.get_default().auth_token = ngrok_auth
+
+port = "8000"
+
+public_url = ngrok.connect(port).public_url
+print(public_url)
+```
+
+### now to use the puplic url in local or in colab :
+```bash
+%%bash
+curl https://a0b3-34-143-137-ngrok-free.app/api/chat -d '{
+  "model": "gemma2:9b-instruct-q5_0",
+  "stream": false,
+  "messages": [
+    { "role": "user", "content": "ما عاصمة مصر؟" }
+  ]
+}'
+```
 
 ## postman collection :
 download postman collection from [str/assets/mini-RAG.postman_collection.json](str/assets/mini-RAG.postman_collection.json)
