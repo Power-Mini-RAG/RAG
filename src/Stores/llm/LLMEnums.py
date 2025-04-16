@@ -3,6 +3,7 @@ from enum import Enum
 class LLMEnums(Enum):
     OPENAI = "OPENAI"
     COHERE = "COHERE"
+    OLLAMA = "OLLAMA"
     
     
 class OpenAIEnums(Enum):
@@ -19,6 +20,12 @@ class CohereEnums(Enum):
     
     Document ="search_document"
     QUERY  ="search_query"
+    
+
+class OllamaEnums(Enum):
+    SYSTEM    = "system"
+    USER      =  "user"
+    ASSASTANT ="assastant"
     
     
 
