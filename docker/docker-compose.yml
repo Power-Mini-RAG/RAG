@@ -15,8 +15,19 @@ services:
       - backend
     restart: always
 
+  # ollama:
+  #   image: ollama/ollama:latest
+  #   container_name: ollama
+  #   ports:
+  #     - "11434:11434"
+  #   networks:
+  #     - backend
+  #   restart: always
+
 networks:
   backend:
-  
+
 volumes:
   mongodata:
+
+   
