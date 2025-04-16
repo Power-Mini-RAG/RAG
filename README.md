@@ -216,7 +216,7 @@ curl http://localhost:8000/api/chat -d '{
 
 #### install PyNgrok:
 ```bash
-! pip install pyngrok ==7.2.0
+! pip install pyngrok==7.2.0
 ````
 ### Connect to token pyngrok and configration and apply public url:
 
