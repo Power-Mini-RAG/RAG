@@ -195,7 +195,7 @@ async def search_index(request :Request ,project_id : str ,search_request :Searc
         limit = search_request.limit
     )
     
-    print(f"this is the results:{results}")
+    #print(f"this is the results:{results}")
     
     if not results :
         return JSONResponse(
