@@ -12,7 +12,7 @@ This is a minimal implementation of the RAG model for question Answering .
 
 2) create a new environment using the following command :
 ```bash 
-$ conda create -n RAG python =3.8
+$ conda create -n RAG python=3.8
 
 ```
 3) Activate the environment :
