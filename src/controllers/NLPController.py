@@ -158,7 +158,7 @@ class NLPController(BaseController):
             
             self.template_parser.get("rag","document_prompt",{
                 "doc_num" : idx+1,
-                "chunk_text": doc.text,
+                "chunk_text":self.Generation_client.process_text(doc.text),
                 
             })
             
