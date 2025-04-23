@@ -23,9 +23,8 @@ services:
     volumes:
       - pgvector_data:/var/lib/pgvectorsql/data
     environment:
-      - POSTGRETS_PASSWORD =${POSTGRETS_PASSWORD}
-      - POSTGRETS_PASSWORD =${POSTGRETS_PASSWORD}
-
+    
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     networks:
       - backend
     restart: always
