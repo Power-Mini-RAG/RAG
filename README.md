@@ -17,7 +17,7 @@ sudo apt install libpq-dev gcc python3-dev
 
 2) create a new environment using the following command :
 ```bash 
-$ conda create -n RAG python =3.8
+$ conda create -n RAG python=3.8
 
 ```
 3) Activate the environment :
@@ -183,10 +183,12 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 !curl https://ollama.ai/install.sh | sh
 ```
 
-#### Select the model :
+#### Select the models :
 
 ```bash
-ollama_model_id = "gemma2:9b-instruct-q5_0"
+ollama_model_id_1 = "gemma2:9b-instruct-q5_0"
+ollama_model_id_2 ="nomic-embed-text" 
+
 ```
 
 #### This is the kill server :
@@ -194,18 +196,20 @@ ollama_model_id = "gemma2:9b-instruct-q5_0"
 !pkill -f ollama
 ```
 
-### pull the model :
+### pull the models :
 ```bash
-!ollama pull {ollama_model_id}
+!ollama pull {ollama_model_id_1}
+!ollama pull {ollama_model_id_2}
 
 ```
 ###  Run the Ollama in backgraund and show the tail in this file :
 ```bash
-!nohup bash -c "OLLAMA_HOST=0.0.0.0:8000 OLLAMA_ORIGIN=* ollama run {ollama_model_id}"  &
+!nohup bash -c "OLLAMA_HOST=0.0.0.0:8000 OLLAMA_ORIGIN=* ollama run {ollama_model_id_1}"  &
+!nohup bash -c "OLLAMA_HOST=0.0.0.0:8001 OLLAMA_ORIGIN=* ollama run {ollama_model_id_2}"  &
 !sleep 5 && tail /content/nohup.out
 ```
 
-### Request the ollama :
+### Request the ollama model Generation :
 ```bash
 %%bash
 curl http://localhost:8000/api/chat -d '{
@@ -217,13 +221,23 @@ curl http://localhost:8000/api/chat -d '{
 }'
 ```
 
+### Request the ollama model Embedding :
+```bash
+%%bash
+curl http://localhost:8001/api/embeddings -d '{
+  "model": "nomic-embed-text",
+  "prompt": "The sky is blue because of Rayleigh scattering"
+}'
+```
+
 ### convert the url local to public url
 
 #### install PyNgrok:
 ```bash
-! pip install pyngrok ==7.2.0
+! pip install pyngrok==7.2.0
 ````
-### Connect to token pyngrok and configration and apply public url:
+### Connect to token pyngrok and configration and apply public url.
+#### model Generation:
 
 ```bash
 from google.colab import userdata
@@ -238,7 +252,20 @@ port = "8000"
 public_url = ngrok.connect(port).public_url
 print(public_url)
 ```
+#### model Embedding :
+```bash
+from google.colab import userdata
+from pyngrok import ngrok, conf
 
+ngrok_auth = userdata.get('colab-ngrok')
+
+conf.get_default().auth_token = ngrok_auth
+
+port = "8001"
+
+public_url = ngrok.connect(port).public_url
+print(public_url)
+```
 ### now to use the puplic url in local or in colab :
 ```bash
 %%bash
@@ -251,6 +278,11 @@ curl https://a0b3-34-143-137-ngrok-free.app/api/chat -d '{
 }'
 ```
 
+
+### put public url in `.env` :
+```bash
+https://ac51-35-198-249-50.ngrok-free.app/v1
+```
 ## postman collection :
 
 download postman collection from [src/assets/mini-RAG.postman_collection_v3](src/assets/mini-RAG.postman_collection_v3)
