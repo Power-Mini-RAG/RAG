@@ -6,6 +6,11 @@ This is a minimal implementation of the RAG model for question Answering .
  
  - python 3.8 or later
 
+### install Dependencies
+```bash
+sudo apt update
+sudo apt install libpq-dev gcc python3-dev
+```
  ##### install python using Miniconda for Windows
 
 1) Download and install Miniconda .
@@ -272,6 +277,7 @@ curl https://a0b3-34-143-137-ngrok-free.app/api/chat -d '{
   ]
 }'
 ```
+
 
 ### put public url in `.env` :
 ```bash
