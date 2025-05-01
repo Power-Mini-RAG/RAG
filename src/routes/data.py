@@ -2,7 +2,7 @@ from fastapi import FastAPI, APIRouter ,Depends,UploadFile,status,Request
 from fastapi.responses import JSONResponse
 import os 
 from helpers.config import get_settings ,Settings
-from  controllers import DataController ,ProjectController,ProcessController
+from controllers import DataController ,ProjectController,ProcessController
 import aiofiles
 from models import ResponseSignal
 from models.enums.AssetTypeEnum import AssetTypeEnum
@@ -13,6 +13,7 @@ from models.ChunkModel import ChunkModel
 from models.AssetModel import AssetModel
 from models.db_schemes import DataChunk ,Asset
 import json
+from controllers import NLPController
 
 
 
@@ -99,8 +100,7 @@ async def upload_data(request : Request ,project_id:int ,file : UploadFile,
 
 @data_router.post("/process/{project_id}")
 async def process_endpoint(request : Request ,project_id: int, process_request: ProcessRequest):
-
-
+    
     chunk_size = process_request.chunk_size
     overlap_size = process_request.overlap_size
     do_reset = process_request.do_reset
@@ -114,6 +114,14 @@ async def process_endpoint(request : Request ,project_id: int, process_request: 
     project =await project_model.get_project_or_create_one(
         project_id = project_id
     )
+    
+    nlp_controller = NLPController(
+        vectordb_client = request.app.vectordb_client,
+        generation_client = request.app.generation_client,
+        embedding_client = request.app.embedding_client,
+        template_parser = request.app.template_parser
+        
+                    )
     
     asset_model = await AssetModel.create_instance( 
             db_client = request.app.db_client
@@ -180,9 +188,16 @@ async def process_endpoint(request : Request ,project_id: int, process_request: 
         )
         
     if do_reset == 1:
-         _ = await chunk_model.delete_chunks_by_project_id(
+        collection_name = nlp_controller.create_collection_name(project_id = project.project_id)
+        
+        # delete the Embedding for this collection name 
+        _ =  await request.app.vectordb_client.delete_collection(
+            collection_name = collection_name)
+        
+        # delete the chunk text for this collection name
+        _ = await chunk_model.delete_chunks_by_project_id(
             project_id = project.project_id
-         )
+            )
     
     for asset_id ,file_id in project_file_ids.items():
 

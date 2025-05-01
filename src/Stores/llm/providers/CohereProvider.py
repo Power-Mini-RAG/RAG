@@ -1,5 +1,5 @@
 from ..LLMInterface import LLMInterface
-from ..LLMEnums import CohereEnums ,DocumentTypeEnums
+from ..LLMEnums import CohereEnums ,DocumentTypeEnum
 import logging
 import cohere 
 from typing import List ,Union
@@ -93,7 +93,7 @@ class CohereProvider(LLMInterface):
             return None
         
         input_type = CohereEnums.Document.value
-        if document_type == DocumentTypeEnums.QUERY.value:
+        if document_type == DocumentTypeEnum.QUERY.value:
             input_type = CohereEnums.QUERY.value
 
         response = self.client.embed(
