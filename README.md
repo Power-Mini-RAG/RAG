@@ -282,6 +282,12 @@ curl https://a0b3-34-143-137-ngrok-free.app/api/chat -d '{
 ### put public url in `.env` :
 ```bash
 https://ac51-35-198-249-50.ngrok-free.app/v1
+
+```
+
+### Upgrade python version
+```bash
+conda install python=3.10
 ```
 ## postman collection :
 
