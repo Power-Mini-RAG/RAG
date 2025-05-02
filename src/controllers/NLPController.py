@@ -102,6 +102,8 @@ class NLPController(BaseController):
             text=query,
             limit=limit,
         )
+        
+        #print(f"retrieved_documents in NLPcontroller :{retrieved_documents}")
 
         if not retrieved_documents or len(retrieved_documents) == 0:
             return answer, full_prompt, chat_history

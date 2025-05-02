@@ -187,6 +187,7 @@ async def answer_rag(request: Request, project_id: int, search_request: SearchRe
         query=search_request.text,
         limit=search_request.limit,
     )
+    #print(f"answer in nlp : {answer}")
 
     if not answer:
         return JSONResponse(
