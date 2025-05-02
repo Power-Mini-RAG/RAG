@@ -7,6 +7,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from models import ProcessingEnum
 from typing import List
 from dataclasses import dataclass
+import regex
 
 @dataclass
 class Document:
@@ -50,47 +51,8 @@ class ProcessController(BaseController):
             return loader.load()
 
         return None
-
-    def process_file_content(self, file_content: list, file_id: str,
-                            chunk_size: int=100, overlap_size: int=20):
-        
-        
-        # text_spliter = RecursiveCharacterTextSplitter(
-        #     chunk_size = chunk_size,
-        #     chunk_overlap = overlap_size,
-        #     length_function=len,
-            
-        #     )
-        
-
-        file_content_texts = [
-            rec.page_content
-            for rec in file_content
-        ]
-
-        file_content_metadata = [
-            rec.metadata
-            for rec in file_content
-        ]
-
-        # chunks = text_spliter.create_documents(
-        #     file_content_texts,
-        #     metadatas=file_content_metadata
-        # )
-
-        chunks = self.process_simpler_splitter(
-            texts=file_content_texts,
-            metadatas=file_content_metadata,
-            chunk_size=chunk_size,
-        )
-        # chunks = text_spliter.create_documents(
-            
-        #     file_content_texts,
-        #     metadatas = file_content_metadata)
-
-
-        return chunks
-
+    
+    
     def process_simpler_splitter(self, texts: List[str], metadatas: List[dict], chunk_size: int, splitter_tag: str="\n"):
         
         full_text = " ".join(texts)
@@ -118,6 +80,32 @@ class ProcessController(BaseController):
             ))
 
         return chunks
+
+    def process_file_content(self, file_content: list, file_id: str,
+                            chunk_size: int=100, overlap_size: int=20):
+        
+
+        file_content_texts = [
+            rec.page_content
+            for rec in file_content
+        ]
+
+        file_content_metadata = [
+            rec.metadata
+            for rec in file_content
+        ]
+
+
+        chunks = self.process_simpler_splitter(
+            texts=file_content_texts,
+            metadatas=file_content_metadata,
+            chunk_size=chunk_size,
+        )
+      
+        return chunks
+
+
+    
 
 
     
