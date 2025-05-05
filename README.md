@@ -2,6 +2,9 @@
 
 This is a minimal implementation of the RAG model for question Answering .
 
+<pre> ```mermaid graph TD main[main.py] --> utils[utils/] main --> models[models/] models --> model1[model1.py] models --> model2[model2.py] main --> config[config/] ``` </pre>
+
+
 ## Requirements for windows
  
  - python 3.8 or later
