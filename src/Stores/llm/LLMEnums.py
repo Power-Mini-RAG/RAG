@@ -30,6 +30,6 @@ class OllamaEnums(Enum):
     
 
 class DocumentTypeEnum(Enum):
-    Document ="document"
-    QUERY    = "query"
+    Document="document"
+    QUERY= "query"
     
