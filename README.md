@@ -1,11 +1,11 @@
 # Mini-RAG
 
 This is a minimal implementation of the RAG model for question Answering .
-## pipeline of .env file .
+## Pipeline of .env file .
 ![Image](https://github.com/user-attachments/assets/53004ae4-9407-4b6b-b5ef-acead0a5f4d4)
-## pipeline of endpoints .
+## Pipeline of endpoints .
 ![Image](https://github.com/user-attachments/assets/8d240d6f-ffde-4bf4-9a1c-47632d89b903)
-## pipeline of Settings .
+## Pipeline of Settings .
 ![Image](https://github.com/user-attachments/assets/aa9b2964-3da8-4d95-aff9-334f1c543cf4)
 
 ## Requirements for windows
