@@ -2,6 +2,8 @@
 
 This is a minimal implementation of the RAG model for question Answering .
 
+![Image](https://github.com/user-attachments/assets/aa9b2964-3da8-4d95-aff9-334f1c543cf4)
+
 ## Requirements for windows
  
  - python 3.8 or later
